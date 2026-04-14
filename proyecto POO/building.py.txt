@@ -1,0 +1,27 @@
+from .entidad import EntidadMovil
+import random
+from p5 import *
+
+class Building(EntidadMovil):
+    def __init__(self, x_pos):
+        # Llamamos al constructor del padre
+        super().__init__(x=x_pos, y=600, velocidad=4.2)
+        
+        # Atributos específicos del edificio
+        self.ancho = random.uniform(100, 160)
+        self.alto = random.uniform(350, 580)
+        self.color_neon = random.choice([(180, 50, 255), (0, 255, 255)])
+
+    def resetear(self):
+        """Sobrescribimos el reset para que el edificio varíe su altura al volver."""
+        self.x = 800 + self.ancho
+        self.alto = random.uniform(350, 580)
+
+    def dibujar(self):
+        """Función única para renderizar."""
+        push_matrix()
+        translate(self.x, self.y)
+        stroke(*self.color_neon)
+        fill(20, 10, 40)
+        rect((0, 0), self.ancho, -self.alto)
+        pop_matrix()
